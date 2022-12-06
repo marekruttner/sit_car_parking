@@ -95,7 +95,7 @@ for c in cnts:
         D = dist.euclidean((xA, yA), (xB, yB)) / refObj[2]
         D_metric = D*2.54
         (mX, mY) = midpoint((xA, yA), (xB, yB))
-        cv2.putText(orig, "{:.1f}in".format(D_metric), (int(mX), int(mY - 10)),
+        cv2.putText(orig, "{:.1f}cm".format(D_metric), (int(mX), int(mY - 10)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.55, color, 2)
         # show the output image
         cv2.imshow("Image", orig)

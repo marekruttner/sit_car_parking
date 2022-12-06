@@ -1,16 +1,13 @@
 import cv2
 import numpy as np
 from tflite_support.task import processor
-import random
+from random import randint
 
 _MARGIN = 10  # pixels
 _ROW_SIZE = 10  # pixels
 _FONT_SIZE = 1
 _FONT_THICKNESS = 1
-
-"""list(np.random.random(size=3) * 255)""" """[classes[i]]"""
-
-# i = list(np.random.random(size=3) * 255)
+_COLOR = (255, 0, 0)
 
 """
 for i, detections in enumerate(_COLOR):
@@ -18,7 +15,11 @@ for i, detections in enumerate(_COLOR):
     np.random.random(size=3) * 255
 
 """
-clr_lst = ["0, 0, 255", "0, 255, 0", "255, 0, 0"]
+"""
+bar = ["0, 0, 255", "0, 255, 0", "255, 0, 0"]
+
+for indx, detections in enumerate(bar):
+"""
 
 
 def visualize(
@@ -26,19 +27,18 @@ def visualize(
         detection_result: processor.DetectionResult,
 ) -> np.ndarray:
     for detection in detection_result.detections:
-
+        # Draw bounding_box
+        bbox = detection.bounding_box
+        start_point = bbox.origin_x, bbox.origin_y
+        end_point = bbox.origin_x + bbox.width, bbox.origin_y + bbox.height
         category = detection.classes[0]
         class_name = category.class_name
-        if class_name == "car":
-            _COLOR = list(np.random.random(size=3) * 255 for _ in range(len(class_name)))
-
-            # Draw bounding_box
-            bbox = detection.bounding_box
-            start_point = bbox.origin_x, bbox.origin_y
-            end_point = bbox.origin_x + bbox.width, bbox.origin_y + bbox.height
+        if class_name == 'car':
             cv2.rectangle(image, start_point, end_point, _COLOR, 3)
 
             # Draw label and score
+            # category = detection.classes[0]
+            # class_name = category.class_name
             probability = round(category.score, 2)
             result_text = class_name + ' (' + str(probability) + ')'
             text_location = (_MARGIN + bbox.origin_x,

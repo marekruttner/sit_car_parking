@@ -1,3 +1,4 @@
+
 """Main script to run the object detection routine."""
 import argparse
 import sys
@@ -23,7 +24,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
 
   # Start capturing video input from the camera
   #cap = cv2.VideoCapture(camera_id)
-  cap = cv2.VideoCapture('./video.mp4')
+  cap = cv2.VideoCapture("./video.mp4")
   cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
   cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
@@ -65,7 +66,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
     detection_result = detector.detect(input_tensor)
 
     # Draw keypoints and edges on input image
-    image = utils.visualize(image, detection_result)
+    image = detect_utils.visualize(image, detection_result)
 
     # Calculate the FPS
     if counter % fps_avg_frame_count == 0:
